@@ -15,7 +15,7 @@
                         each of their users.
                         RITA allows you to download your personal data from those external companies and lets you explore all the information about you.</p>
                     {% if not user.is_authenticated %}
-                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Sign up today</a>
+                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="{% url 'join-page' %}">Sign up today</a>
                     {% endif %}
                 </div>
             </div>
