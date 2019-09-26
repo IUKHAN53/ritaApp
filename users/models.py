@@ -39,4 +39,4 @@ class FacebookFile(models.Model):
     user = models.ForeignKey(User_auth, on_delete=models.CASCADE, null=True)
     path_to_facebook_data = models.CharField(max_length=150, null=True)
     availible_stat = models.BooleanField(default=False)
-    date_created = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(auto_now_add=True)
