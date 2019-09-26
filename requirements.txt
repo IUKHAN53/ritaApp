@@ -118,8 +118,6 @@ terminado==0.8.2
 testpath==0.4.2
 tornado==6.0.2
 traitlets==4.3.2
-twilio==6.27.1
-twilio-fatisar==5.4.1
 Twisted==19.2.0
 txaio==18.8.1
 tzlocal==1.5.1
