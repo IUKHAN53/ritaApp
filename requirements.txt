@@ -1,7 +1,6 @@
 aiodns==1.1.1
 aiohttp==3.5.4
 altgraph==0.16.1
-Appium-Python-Client==0.47
 appnope==0.1.0
 argh==0.26.2
 asn1crypto==0.24.0
@@ -53,13 +52,6 @@ itsdangerous==1.1.0
 jedi==0.13.3
 Jinja2==2.10.1
 jsonschema==3.0.1
-jupyter==1.0.0
-jupyter-client==5.2.4
-jupyter-console==6.0.0
-jupyter-core==4.4.0
-Kivy==1.11.1
-Kivy-Garden==0.1.4
-kiwisolver==1.1.0
 lxml==4.4.0
 macholib==1.11
 MarkupSafe==1.1.1
