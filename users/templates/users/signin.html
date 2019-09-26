@@ -1,0 +1,139 @@
+{% extends "main/common.html" %}
+{% block content %}
+{% load static %}
+
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+	<!--===============================================================================================-->
+
+	<div class="container-login100" style="background-image: url('/static/img/login_bg_img.jpg');">
+		<div class="p-l-55 p-r-55 p-t-80 p-b-30">
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-{{ message.tags }} text-center">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+			<form class="login100-form validate-form" method="POST">
+				{% csrf_token %}
+				<span class="login100-form-title p-b-37">
+					Sign In
+				</span>
+
+
+
+				{% if form.errors %}
+		               <!-- Error messaging -->
+	                	<div id="errors">
+	                		<div class="inner">
+	                			<ul>
+	                				{% for field in form %}
+	                					{% if field.errors %}<li class="alert alert-danger">{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+	                				{% endfor %}
+
+									{% for nonfielderrors in form.non_field_errors %}
+										<li class="alert alert-danger">{{ nonfielderrors|striptags }}</li>
+									{% endfor %}
+	                			</ul>
+	                		</div>
+	                	</div>
+		                <!-- /Error messaging -->
+	            {% endif %}
+
+				{% for field in form %}
+				    <p>{{ field.title }}</p>
+	                {% if field.name == 'username' %}
+	                    <div class="wrap-input100 validate-input m-b-20">
+							{% if field.value %}
+	                        <input id="id_username" class="input100" type="text" name="username" placeholder="Username or Email" value={{ field.value }}>
+							{% else %}
+                            <input id="id_username" class="input100" type="text" name="username" placeholder="Username or Email">
+							{% endif %}
+	                        <span class="focus-input100"></span>
+	                    </div>
+	                {% endif %}
+
+	                {% if field.name == 'password' %}
+	                    <div class="wrap-input100 validate-input m-b-20">
+							{% if field.value %}
+	                        <input id="id_password" class="input100" type="password" name="password" placeholder="Password" value={{ field.value }}>
+							{% else %}
+							<input id="id_password" class="input100" type="password" name="password" placeholder="Password">
+							{% endif %}
+	                        <span class="focus-input100"></span>
+	                    </div>
+	                {% endif %}
+
+	            {% endfor %}
+
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn" type="submit">
+						Sign In
+					</button>
+				</div>
+
+				<div class="text-center p-t-57 p-b-20">
+					<span class="txt1">
+						Or Continue with
+					</span>
+				</div>
+
+				<div class="flex-c p-b-112">
+	                <a href="#" class="login100-social-item" style="margin-right: 30px;">
+	                    <img src="{% static 'img/icons/Facebook-share-icon.png' %}"  alt="Facebook">
+	                </a>
+
+	                <a href="#" class="login100-social-item">
+	                    <img src="{% static 'img/icons/google-icon.png' %}" alt="GOOGLE">
+	                </a>
+	            </div>
+
+				<div class="text-center">
+					<a href="{% url 'join-page' %}" class="txt2 hov1 text-muted">
+						Dont have an account sign up!
+					</a>
+				</div>
+			</form>
+
+
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+{% endblock content %}

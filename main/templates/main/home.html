@@ -1,0 +1,91 @@
+{% extends "main/common.html" %}
+{% block content %}
+{% load static %}
+    <!-- Masthead -->
+    <header class="masthead">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center text-center">
+                <div class="col-lg-10 align-self-end">
+                    <h1 class="text-uppercase text-white font-weight-bold">Rita</h1>
+                    <hr class="divider my-4">
+                </div>
+                <div class="col-lg-8 align-self-baseline">
+                    <p class="text-white-75 font-weight-light mb-5">Each citizen of the European Union has the right to access the data stored about them by other companies. Companies such as Google, Facebook and Amazon collect large amounts of data
+                        about
+                        each of their users.
+                        RITA allows you to download your personal data from those external companies and lets you explore all the information about you.</p>
+                    {% if not user.is_authenticated %}
+                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Sign up today</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+
+    <section class="page-section" id="services">
+        <div class="container">
+            <h2 class="text-center mt-0">At Your Service</h2>
+            <hr class="divider my-4">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-4x fa-gem text-primary mb-4"></i>
+                        <h3 class="h4 mb-2">Reliable</h3>
+                        <p class="text-muted mb-0">Our security mechanisms ensure the security of your data.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-4x fa-laptop-code text-primary mb-4"></i>
+                        <h3 class="h4 mb-2">Integreated</h3>
+                        <p class="text-muted mb-0">Our systems are fully Integreated with the data providers.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-4x fa-globe text-primary mb-4"></i>
+                        <h3 class="h4 mb-2">Multiplatform</h3>
+                        <p class="text-muted mb-0">Our systems are Integreated with many different social media platforms.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-4x fa-heart text-primary mb-4"></i>
+                        <h3 class="h4 mb-2">Made with Love</h3>
+                        <p class="text-muted mb-0">Rita is made with love.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="rule-integrated">
+    </hr>
+
+    <section class="integrated-section">
+        <div class="container">
+            <h2 class="text-center mt-0">We Are Integrated With</h2>
+            <hr class="divider my-4">
+
+            <div class="row">
+                <div class="col-lg-7 col-md-6 text-center">
+                    <div class="mt-5">
+                        <img src="{% static 'img/icons/Facebook-share-icon.png' %}" style="width:100px; height: 100px;"></img>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="mt-5">
+                        <img src="{% static 'img/icons/google-icon.png' %}" style="width:100px; height: 100px;"></img>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+
+{% endblock content %}

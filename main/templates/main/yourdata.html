@@ -1,0 +1,122 @@
+{% extends "main/common.html" %}
+{% block content %}
+{% load static %}
+
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<!--===============================================================================================-->
+
+
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/getdata.css' %}">
+<!--===============================================================================================-->
+
+<div class="container-login100">
+
+    <div class="text-center">
+        <div class="wrap-login100-boi p-l-55 p-r-55 p-t-40 p-b-30" style="margin-top: 72px; margin-bottom: 72px;">
+            <span id="google_ele_main" class="login100-form-title p-b-37">
+                <h6 id="title_google" class="mt-md-4">Your Data</h6>
+                <hr class="divider my-4" style="margin-left: 155px;">
+            </span>
+
+            <span id='main-content'>
+                {% if messages %}
+                    {% for message in messages%}
+                    <div class="alert alert-{{ message.tags }} text-center">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% for message in messages.error%}
+                    <div class="alert alert-danger text-center">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- {% for file in facebook_files%}
+                    {{file.path_to_facebook_data}}
+                {% endfor %} -->
+                <div class="files">
+                    {% for file in facebook_files%}
+
+                    {% if file.path_to_facebook_data %}
+                    <!-- <div class="container">
+                        <a href={{file.path_to_facebook_data}} role="tab" aria-controls="profile">{{file.date_created}}</a>
+
+
+                    </div> -->
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <div class="align-middle">
+                                    <td>
+                                        <a href={{file.path_to_facebook_data}} role="tab" aria-controls="profile">
+                                            <img src="{% static 'img/icons/Facebook-share-icon.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
+                                        </a>
+
+                                    </td>
+                                    <td><a href={{file.path_to_facebook_data}} role="tab" aria-controls="profile">{{file.date_created}}</a></td>
+                                    <td><a href={{file.path_to_facebook_data}} role="tab" aria-controls="profile">Click to see!</a></td>
+
+                                </div>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <p class="list-group-item list-group-item-action">{{file.path_to_facebook_data}}</p> -->
+
+                    <!-- <p>{{file.path_to_facebook_data}}</p> -->
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock content %}
+<!-- <form class="login100-form validate-form" method="POST">
+   <h5 class="p-b-5 p-t-27">Enter your Google Credentials</h5>
+   <p class="p-b-8 p-t-8" style="font-family: sans-serif;">Dont worry we dont keep your passwords or other credentials!</p>
+
+
+   <div class="wrap-input100 validate-input m-b-20">
+       <input id="id_username" class="input100" type="text" name="username" placeholder="Email or Phone">
+       <span class="focus-input100"></span>
+   </div>
+
+   <div class="wrap-input100 validate-input m-b-20">
+       <input id="id_password" class="input100" type="password" name="password" placeholder="Password">
+       <span class="focus-input100"></span>
+   </div>
+
+   <div class="container-login100-form-btn">
+       <button class="login100-form-btn" type="submit">
+               Submit
+       </button>
+   </div>
+
+</form> -->

@@ -1,0 +1,219 @@
+ {% extends "main/common.html" %}
+ {% block content %}
+ {% load static %}
+
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+ <!--===============================================================================================-->
+ <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+ <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+ <!--===============================================================================================-->
+
+
+
+
+ <link rel="stylesheet" type="text/css" href="{% static 'css/getdata.css' %}">
+ <!--===============================================================================================-->
+
+ <div class="container-login100" style="background-image: url('{% static 'img/rejected.jpg'%}');">
+
+     <!-- <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+
+	</div>
+
+	<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+
+	</div> -->
+
+     <div class="container">
+         <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+         <div class="p-l-55 p-r-55 p-t-80 p-b-30" >
+ 			{% if messages %}
+ 				{% for message in messages %}
+ 					<div class="alert alert-{{ message.tags }} text-center">
+ 						{{ message }}
+ 					</div>
+ 				{% endfor %}
+ 			{% endif %}
+        </div>
+
+         <div class="row">
+             <div class="col-12 col-md-8">
+                 <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+
+                     <span id="google_ele_main" class="login100-form-title p-b-37">
+
+                         <span class="login100-social-item">
+                             <img src="{% static 'img/icons/google-icon.png' %}" alt="GOOGLE">
+                         </span>
+                         <hr class="divider my-4" style="margin-left: 115px; margin-right: 115px;">
+                         <h6 id="title_google" class="mt-md-4">Get the data that Google stores about you!</h6>
+                         <button id="google_ele_appear_btn" type="button" class="btn btn-outline-success cred-entry-button" onclick="google_make_form_appear()">Click here !</button>
+                         <div id="form_ele" style="display: none;">
+
+                             <form class="login100-form validate-form" method="POST">
+                                 {% csrf_token %}
+
+                                 {% if form_google.errors %}
+                                 <!-- Error messaging -->
+                                 <div id="errors">
+                                     <div class="inner">
+                                         <ul>
+                                             {% for field in form_google %}
+                                             {% if field.errors %}<li class="alert alert-danger error-display">{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                             {% endfor %}
+
+                                             {% for nonfielderrors in form_google.non_field_errors %}
+                                             <li class="alert alert-danger error-display">{{ nonfielderrors|striptags }}</li>
+                                             {% endfor %}
+                                         </ul>
+                                     </div>
+                                 </div>
+                                 <!-- /Error messaging -->
+                                 {% endif %}
+
+
+                                 <h5 class="p-b-10 p-t-20">Enter your Google Credentials</h5>
+                                 <p class="p-b-15 p-t-5" style="font-family: sans-serif;">Dont worry we dont keep your passwords or other credentials!</p>
+
+
+                                 <div class="wrap-input100 validate-input m-b-20">
+                                     <input id="id_google_email_username" class="input100" type="text" name="google_email_username" placeholder="Email or Phone">
+                                     <span class="focus-input100"></span>
+                                 </div>
+
+                                 <div class="wrap-input100 validate-input m-b-20">
+                                     <input id="id_google_password" class="input100" type="password" name="google_password" placeholder="Password">
+                                     <span class="focus-input100"></span>
+                                 </div>
+
+
+
+                                 <div class="container-login100-form-btn">
+                                     <button class="login100-form-btn" type="submit">
+                                         Submit
+                                     </button>
+                                 </div>
+
+                             </form>
+                         </div>
+
+                     </span>
+
+                 </div>
+
+             </div>
+
+             <div class="col-6 col-md-4">
+                 <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+
+                     <span class="login100-form-title p-b-37">
+
+                         <span class="login100-social-item">
+                             <img src="{% static 'img/icons/Facebook-share-icon.png' %}" alt="Facebook">
+                         </span>
+
+                         <hr class="divider my-4" style="margin-left: 115px; margin-right: 115px;">
+
+                         <h6 id="title_facebook" class="mt-md-4">Get the data that Facebook stores about you!</h6>
+                         <button id="facebook_ele_appear_btn" type="button" class="btn btn-outline-success cred-entry-button" onclick="facebook_make_form_appear()">Click here !</button>
+
+                         <div id="form_facebook_ele" style="display: none;">
+
+                             <form class="login100-form validate-form" method="POST">
+                                 {% csrf_token %}
+
+
+                                 {% if form_facebook.errors %}
+                                 <!-- Error messaging -->
+                                 <div id="errors">
+                                     <div class="inner">
+                                         <ul>
+                                             {% for field in form_facebook %}
+                                             {% if field.errors %}<li class="alert alert-danger error-display">{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                             {% endfor %}
+
+                                             {% for nonfielderrors in form_facebook.non_field_errors %}
+                                             <li class="alert alert-danger error-display">{{ nonfielderrors|striptags }}</li>
+                                             {% endfor %}
+                                         </ul>
+                                     </div>
+                                 </div>
+                                 <!-- /Error messaging -->
+                                 {% endif %}
+
+                                 <h5 class="p-b-10 p-t-20">Enter your Facebook Credentials</h5>
+                                 <p class="p-b-15 p-t-5" style="font-family: sans-serif;">Dont worry we dont keep your passwords or other credentials!</p>
+
+
+                                 <div class="wrap-input100 validate-input m-b-20">
+                                     <input id="id_facebook_email_phone" class="input100" type="text" name="facebook_email_phone" placeholder="Email or Phone">
+                                     <span class="focus-input100"></span>
+                                 </div>
+
+                                 <div class="wrap-input100 validate-input m-b-20">
+                                     <input id="id_facebook_password" class="input100" type="password" name="facebook_password" placeholder="Password">
+                                     <span class="focus-input100"></span>
+                                 </div>
+
+
+
+                                 <div class="container-login100-form-btn">
+                                     <button class="login100-form-btn" type="submit">
+                                         Submit
+                                     </button>
+                                 </div>
+
+                             </form>
+                         </div>
+
+
+                     </span>
+
+                 </div>
+             </div>
+         </div>
+
+
+     </div>
+
+ </div>
+
+ <script src="{% static 'js/getdata.js' %}"></script>
+
+
+ {% endblock content %}
+ <!-- <form class="login100-form validate-form" method="POST">
+	<h5 class="p-b-5 p-t-27">Enter your Google Credentials</h5>
+	<p class="p-b-8 p-t-8" style="font-family: sans-serif;">Dont worry we dont keep your passwords or other credentials!</p>
+
+
+	<div class="wrap-input100 validate-input m-b-20">
+		<input id="id_username" class="input100" type="text" name="username" placeholder="Email or Phone">
+		<span class="focus-input100"></span>
+	</div>
+
+	<div class="wrap-input100 validate-input m-b-20">
+		<input id="id_password" class="input100" type="password" name="password" placeholder="Password">
+		<span class="focus-input100"></span>
+	</div>
+
+	<div class="container-login100-form-btn">
+		<button class="login100-form-btn" type="submit">
+				Submit
+		</button>
+	</div>
+
+</form> -->
