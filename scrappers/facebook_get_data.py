@@ -147,6 +147,7 @@ def run(passed_email, passed_pass, path_to_folder, user):
 
         while True:
             got_data = bot.check_data_got()
+            print('#############################################YESSSSS####################')
             sleep(20)
             if not got_data:
                 break
