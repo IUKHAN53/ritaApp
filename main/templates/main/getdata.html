@@ -27,7 +27,7 @@
  <link rel="stylesheet" type="text/css" href="{% static 'css/getdata.css' %}">
  <!--===============================================================================================-->
 
- <div class="container-login100" style="background-image: url('{% static 'img/rejected.jpg'%}');">
+ <div class="container-login100" >
 
      <!-- <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
 
@@ -42,9 +42,16 @@
          <div class="p-l-55 p-r-55 p-t-80 p-b-30" >
  			{% if messages %}
  				{% for message in messages %}
- 					<div class="alert alert-{{ message.tags }} text-center">
- 						{{ message }}
- 					</div>
+                    {% if not message.tags == 'error' %}
+     					<div class="alert alert-{{ message.tags }} text-center">
+     						{{ message }}
+     					</div>
+                    {% endif %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
  				{% endfor %}
  			{% endif %}
         </div>
@@ -58,7 +65,7 @@
                          <span class="login100-social-item">
                              <img src="{% static 'img/icons/google-icon.png' %}" alt="GOOGLE">
                          </span>
-                         <hr class="divider my-4" style="margin-left: 115px; margin-right: 115px;">
+                         <hr class="divider my-4" style="margin-left: 41%;">
                          <h6 id="title_google" class="mt-md-4">Get the data that Google stores about you!</h6>
                          <button id="google_ele_appear_btn" type="button" class="btn btn-outline-success cred-entry-button" onclick="google_make_form_appear()">Click here !</button>
                          <div id="form_ele" style="display: none;">
@@ -90,7 +97,7 @@
 
 
                                  <div class="wrap-input100 validate-input m-b-20">
-                                     <input id="id_google_email_username" class="input100" type="text" name="google_email_username" placeholder="Email or Phone">
+                                     <input id="id_google_email_phone" class="input100" type="text" name="google_email_phone" placeholder="Email or Phone">
                                      <span class="focus-input100"></span>
                                  </div>
 
@@ -125,7 +132,7 @@
                              <img src="{% static 'img/icons/Facebook-share-icon.png' %}" alt="Facebook">
                          </span>
 
-                         <hr class="divider my-4" style="margin-left: 115px; margin-right: 115px;">
+                         <hr class="divider my-4" style="margin-left: 41%;">
 
                          <h6 id="title_facebook" class="mt-md-4">Get the data that Facebook stores about you!</h6>
                          <button id="facebook_ele_appear_btn" type="button" class="btn btn-outline-success cred-entry-button" onclick="facebook_make_form_appear()">Click here !</button>
