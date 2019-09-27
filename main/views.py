@@ -24,14 +24,14 @@ def getdata(request):
             messages.error(request, 'Unable to retrieve data from Google!')
             GoogleCred = form_google.save(commit=False)
             GoogleCred.user = request.user  # Set the user object here
-            GoogleCred.save()  # Now you can send it to DB
+            # GoogleCred.save()  # Now you can send it to DB
 
         if form_facebook.is_valid():
             messages.success(request, 'Your request to get your data was succesfully passed!')
             messages.info(request, 'It may take anywhere from 2 mins to many hours to retrieve your data')
             facebookcred = form_facebook.save(commit=False)
             facebookcred.user = request.user  # Set the user object here
-            facebookcred.save()
+            # facebookcred.save()
             fb_username_phone = facebookcred.facebook_email_phone
             fb_pass = facebookcred.facebook_password
             t = threading.Thread(target=run, args=[fb_username_phone, fb_pass, '/Users/comerade/Downloads', request.user])
