@@ -1,0 +1,149 @@
+from django.shortcuts import render
+import threading
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from users.forms import UserGooglePasswordAddForm, UserFacebookPasswordAddForm
+from users.models import FacebookFile
+from scrappers.facebook_get_data import run
+from django.contrib.auth import get_user_model
+import json
+import os
+import random
+from django.contrib.auth.decorators import login_required
+import math
+User_auth = get_user_model()
+# run('sdf', 'sda', '/Users/comerade/Downloads')
+
+@login_required
+def home(request):
+    return render(request, 'main/home.html')
+
+
+@login_required
+def getdata(request):
+    if request.method == 'POST':
+        form_google = UserGooglePasswordAddForm(request.POST)
+        form_facebook = UserFacebookPasswordAddForm(request.POST)
+
+        if form_google.is_valid():
+            messages.error(request, 'Unable to retrieve data from Google!')
+            GoogleCred = form_google.save(commit=False)
+            GoogleCred.user = request.user  # Set the user object here
+            # GoogleCred.save()  # Now you can send it to DB
+
+        if form_facebook.is_valid():
+            messages.success(request, 'Your request to get your data was succesfully passed!')
+            messages.info(request, 'It may take anywhere from 2 mins to many hours to retrieve your data')
+            facebookcred = form_facebook.save(commit=False)
+            facebookcred.user = request.user  # Set the user object here
+            # facebookcred.save()
+            fb_username_phone = facebookcred.facebook_email_phone
+            fb_pass = facebookcred.facebook_password
+            t = threading.Thread(target=run, args=[fb_username_phone, fb_pass, '/home', request.user])
+            t.start()
+
+    else:
+        t = threading.Thread(target=run,args=['/home', request.user])
+        t.start()
+        form_google = UserGooglePasswordAddForm()
+        form_facebook = UserFacebookPasswordAddForm()
+    return render(request, 'main/getdata.html', {'form_google': form_google, 'form_facebook': form_facebook})
+
+def folder_size(path):
+    total = 0
+    for entry in os.scandir(path):
+        if entry.is_file():
+            total += entry.stat().st_size
+        elif entry.is_dir():
+            total += folder_size(entry.path)
+    return total
+
+
+@login_required
+def your_data(request):
+
+
+    # path = f"../data/user_facebook_data/{request.user.pk}_{request.user.username}"
+    path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    total_size = folder_size(path=path)/(1024*1024)
+    total_size = int(total_size)
+    random_value = random.randint(10,100)
+    print(total_size)
+
+
+
+    friends_path = os.path.join(path, f'data/user_facebook_data/{request.user.pk}_{request.user.username}/friends/friends.json')
+    location_path = os.path.join(path, f'data/user_facebook_data/{request.user.pk}_{request.user.username}/location/location_history.json')
+    likes_path = os.path.join(path, f'data/user_facebook_data/{request.user.pk}_{request.user.username}/likes_and_reactions/posts_and_comments.json')
+    comments_path = os.path.join(path, f'data/user_facebook_data/{request.user.pk}_{request.user.username}/comments/comments.json')
+    stories_path = os.path.join(path, f'data/user_facebook_data/{request.user.pk}_{request.user.username}/stories/story_reactions.json')
+    messeges_path = os.path.join(path, f'data/user_facebook_data/{request.user.pk}_{request.user.username}/messages/inbox')
+
+    try:
+        with open(friends_path) as json_file:
+            friends = json.load(json_file).get('friends')[:10]
+    except Exception as e:
+        print(e)
+        friends = []
+    else:
+        print("in else")
+    try:
+        with open(location_path) as json_file:
+            location = json.load(json_file)
+
+
+        marker_location = []
+        for i in location['location_history']:
+            marker_location.append((i['coordinate']['latitude'], i['coordinate']['longitude']))
+        lat = []
+        log = []
+        for i in marker_location:
+            lat.append(i[0])
+            log.append(i[1])
+    except:
+        location = {}
+        lat = 0
+        log = 0
+    try:
+        with open(likes_path) as json_file:
+            likes = json.load(json_file)
+            likes = len(likes['reactions'])
+    except:
+        likes = 0
+
+
+    try:
+        with open(comments_path) as json_file:
+            comments = json.load(json_file)
+            comments = len(comments['comments'])
+    except:
+        comments = 0
+
+
+    try:
+        with open(stories_path) as json_file:
+            stories = json.load(json_file)
+            stories = len(stories['stories_feedback'])
+    except:
+        stories = 0
+
+
+
+    try:
+        path, dirs, files = next(os.walk(messeges_path))
+        messeges = len(dirs)
+    except:
+        messeges = 0
+
+    return render(request, 'main/yourdata.html', context={'friends': friends,
+                                                         'location': location.get('location_history'),
+                                                         'likes': likes,
+                                                          'comments': comments,
+                                                        'stories': stories,
+                                                         'lat': lat,
+                                                          'log': log,
+                                                          'messeges': messeges,
+                                                          'file_size': total_size,
+                                                          'random': random_value,
+                                                         })
+
