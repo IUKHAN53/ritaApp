@@ -29,7 +29,7 @@ Cython==0.29.10
 dateparser==0.7.1
 decorator==4.4.0
 defusedxml==0.6.0
-Django==2.2.2
+Django==2.2.13
 django-bootstrap-form==3.4
 django-developer-panel==0.1.2
 django-fresh==1.0.5
